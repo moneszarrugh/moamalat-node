@@ -1,0 +1,29 @@
+{
+  "name": "moamalat",
+  "version": "1.0.0",
+  "description": "Moamalat server sdk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moneszarrugh/moamalat-node.git"
+  },
+  "keywords": [
+    "moamalat",
+    "payment",
+    "gateway",
+    "sdk",
+    "libya"
+  ],
+  "author": "Mones Zarrugh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/moneszarrugh/moamalat-node/issues"
+  },
+  "homepage": "https://github.com/moneszarrugh/moamalat-node#readme",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}
