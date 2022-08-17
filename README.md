@@ -1,1 +1,1 @@
-# moamalat
+# Moamalat Node.js Library
