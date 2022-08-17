@@ -1,4 +1,4 @@
-import { InstanceConfig, MoamalatConfig } from "./types";
+import { InstanceConfig, MoamalatConfig } from "./types.js";
 declare class Moamalat {
     private merchantId;
     private terminalId;

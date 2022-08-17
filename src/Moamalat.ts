@@ -1,7 +1,6 @@
 import { createHmac } from "crypto";
 import dayjs from "dayjs";
-
-import { HashData, InstanceConfig, MoamalatConfig } from "./types";
+import { HashData, InstanceConfig, MoamalatConfig } from "./types.js";
 
 class Moamalat {
   private merchantId: string;

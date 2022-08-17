@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Moamalat server sdk",
   "main": "./dist/index.js",
+  "type": "module",
   "scripts": {
     "build": "npx tsc",
     "start": "node ./dist/index.js"
