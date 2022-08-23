@@ -13,7 +13,7 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "build": "tsup src/index.ts",
     "watch": "npm run build -- --watch src",
     "prepublishOnly": "npm run build"
   },
