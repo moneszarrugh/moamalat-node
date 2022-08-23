@@ -1,4 +1,6 @@
-# Moamalat Node.js Library
+# Moamalat Node.js
+
+The Moamalat node library makes it super simple to write the server-side code of the checkout proccess for the Moamalat payment gateway.
 
 ## Installation
 
@@ -34,6 +36,11 @@ const Moamalat = require("moamalat").default;
 
 ```ts
 // configure your moamalat instance with your credentials
+
+/*
+ get test credentials from here
+ http://docs.moamalat.net:55/lightbox.html
+*/
 const moamalat = new Moamalat({
   merchantId: "your merchantId",
   terminalId: "your terminalId",
@@ -107,3 +114,5 @@ const openPaymentGateway = async () => {
   Lightbox.Checkout.showLightbox();
 };
 ```
+
+## Happy coding 😎
