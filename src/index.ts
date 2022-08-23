@@ -1,3 +1,3 @@
-import Moamalat from "./Moamalat.js";
+import Moamalat from "./Moamalat";
 
 export default Moamalat;

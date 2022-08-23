@@ -1,19 +1,25 @@
 import { createHmac } from "crypto";
 import dayjs from "dayjs";
-import { HashData, InstanceConfig, MoamalatConfig } from "./types.js";
+
+import { HashData, InstanceConfig, MoamalatConfig } from "./types";
 
 class Moamalat {
   private merchantId: string;
   private terminalId: string;
-  private secureKey: string;
+  private secureKey: Buffer;
 
-  constructor(config: InstanceConfig) {
-    this.merchantId = config.merchantId;
-    this.terminalId = config.terminalId;
-    this.secureKey = config.secureKey;
+  constructor({ merchantId, terminalId, secureKey }: InstanceConfig) {
+    this.merchantId = merchantId;
+    this.terminalId = terminalId;
+    this.secureKey = Buffer.from(secureKey, "hex");
   }
 
-  checkoutConfig(
+  /**
+   * @param amount amount to be paid in LYD
+   * @param reference marchant reference e.g. invoice id
+   * @param date date of checkout, default is now
+   */
+  checkout(
     amount: number,
     reference: string = "",
     date: Date = new Date()
@@ -47,9 +53,7 @@ class Moamalat {
 
     params.sort();
 
-    const key = Buffer.from(this.secureKey, "hex");
-
-    const hmac = createHmac("sha256", key)
+    const hmac = createHmac("sha256", this.secureKey)
       .update(params.toString())
       .digest("hex");
 
