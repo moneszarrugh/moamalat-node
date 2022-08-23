@@ -35,9 +35,9 @@ const Moamalat = require("moamalat").default;
 #### Library usage on your node app
 
 ```ts
-// configure your moamalat instance with your credentials
-
 /*
+ configure your moamalat instance with your credentials
+
  get test credentials from here
  http://docs.moamalat.net:55/lightbox.html
 */
@@ -47,7 +47,7 @@ const moamalat = new Moamalat({
   secureKey: "your secureKey",
 });
 
-// example invocie
+// example invoice
 const invoice = {
   id: 1,
   amount: 100,
@@ -56,9 +56,9 @@ const invoice = {
 
 // use the data from the invoice for checkout
 const mycheckout = moamalat.checkout(
-  invoice.amount,
-  invoice.id.toString(),
-  invoice.date
+  invoice.amount, // required
+  invoice.id.toString(), // optional
+  invoice.date // optional
 );
 
 console.log(mycheckout);
