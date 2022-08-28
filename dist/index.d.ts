@@ -12,6 +12,14 @@ declare type MoamalatConfig = {
     TrxDateTime: string;
     SecureHash: string;
 };
+interface TransactionsFilterOptions {
+    displayLength: number;
+    displayStart: number;
+    dateFrom: Date | string;
+    dateTo: Date | string;
+    sortCol: string;
+    sortDir: "asc" | "desc";
+}
 interface TransactionResponse {
     Message: string | null;
     Success: boolean;
@@ -55,7 +63,7 @@ interface DateTransaction {
     ResCodeDesc: string;
     STAN: string;
     SenderName: string;
-    Status: "Approved" | "";
+    Status: "Approved" | "Declined";
     TipAmnt: string;
     TransType: string;
     TransactionChannel: string;
@@ -75,8 +83,8 @@ declare class Moamalat {
      * @param reference marchant reference e.g. invoice id
      * @param date date of checkout, default is now
      */
-    checkout(amount: number, reference?: string, date?: Date): MoamalatConfig;
-    transactions(reference: string): Promise<TransactionResponse>;
+    checkout(amount: number, reference?: string | number, date?: Date): MoamalatConfig;
+    transactions(reference: string | number, optoins?: Partial<TransactionsFilterOptions>): Promise<TransactionResponse>;
     private generateSecureHash;
 }
 

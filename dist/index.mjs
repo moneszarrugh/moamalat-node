@@ -34,23 +34,31 @@ var Moamalat = class {
       TerminalId: this.terminalId,
       Amount: _amount.toString(),
       DateTimeLocalTrxn: dateTime,
-      MerchantReference: reference
+      MerchantReference: reference.toString()
     };
     return {
       MID: this.merchantId,
       TID: this.terminalId,
       AmountTrxn: _amount,
-      MerchantReference: reference,
+      MerchantReference: reference.toString(),
       TrxDateTime: dateTime,
       SecureHash: this.generateSecureHash(hashData)
     };
   }
-  async transactions(reference) {
+  async transactions(reference, optoins = {}) {
     const hashData = {
       MerchantId: this.merchantId,
       TerminalId: this.terminalId,
       DateTimeLocalTrxn: dayjs().format("YYYYMMDDHHmmss")
     };
+    const {
+      displayLength = 1,
+      displayStart = 0,
+      dateFrom,
+      dateTo,
+      sortCol,
+      sortDir
+    } = optoins;
     const res = await fetch(
       this.apiUrl + "/cube/paylink.svc/api/FilterTransactions",
       {
@@ -60,11 +68,13 @@ var Moamalat = class {
         method: "POST",
         body: JSON.stringify({
           ...hashData,
-          MerchantReference: reference,
-          DisplayLength: "2",
-          DisplayStart: "1",
-          SortCol: "TransactionId",
-          SortDir: "asc",
+          MerchantReference: reference.toString(),
+          DisplayLength: displayLength,
+          DisplayStart: displayStart,
+          DateFrom: dateFrom && dayjs(dateFrom).format("YYYYMMDD"),
+          DateTo: dateTo && dayjs(dateTo).format("YYYYMMDD"),
+          SortCol: sortCol,
+          SortDir: sortDir,
           SecureHash: this.generateSecureHash(hashData)
         })
       }
