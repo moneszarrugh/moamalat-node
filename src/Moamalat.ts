@@ -9,7 +9,7 @@ import {
   HashData,
   InstanceConfig,
   MoamalatConfig,
-  TransactionResponse,
+  TransactionsResponse,
   TransactionsFilterOptions,
 } from "./types";
 
@@ -68,7 +68,7 @@ class Moamalat {
   async transactions(
     reference: string | number,
     optoins: Partial<TransactionsFilterOptions> = {}
-  ): Promise<TransactionResponse> {
+  ): Promise<TransactionsResponse> {
     const hashData: FilterTransactionsHashData = {
       MerchantId: this.merchantId,
       TerminalId: this.terminalId,
@@ -105,7 +105,7 @@ class Moamalat {
       }
     );
 
-    const data: TransactionResponse = await res.json();
+    const data: TransactionsResponse = await res.json();
 
     return data;
   }

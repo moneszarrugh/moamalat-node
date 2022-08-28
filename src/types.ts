@@ -39,7 +39,7 @@ export interface TransactionsFilterOptions {
   sortDir: "asc" | "desc";
 }
 
-export interface TransactionResponse {
+export interface TransactionsResponse {
   Message: string | null;
   Success: boolean;
   TotalAmountAllTransaction: number;

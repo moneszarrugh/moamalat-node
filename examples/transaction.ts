@@ -3,10 +3,7 @@ import Moamalat from "../src";
 const moamalat = new Moamalat();
 
 async function loadTransaction() {
-  const t = await moamalat.transactions("", {
-    displayStart: 0,
-    displayLength: 5,
-  });
+  const t = await moamalat.transactions("");
 
   console.log(t);
 
