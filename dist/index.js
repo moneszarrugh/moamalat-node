@@ -33,34 +33,83 @@ module.exports = __toCommonJS(src_exports);
 // src/Moamalat.ts
 var import_crypto = require("crypto");
 var import_dayjs = __toESM(require("dayjs"));
+var import_node_fetch = __toESM(require("node-fetch"));
+
+// src/constants.ts
+var testApiUrl = "https://tnpg.moamalat.net";
+var prodApiUrl = "https://npg.moamalat.net";
+var testConfig = {
+  merchantId: "10081014649",
+  terminalId: "99179395",
+  secureKey: "39636630633731362D663963322D346362642D386531662D633963303432353936373431",
+  prod: false
+};
+
+// src/Moamalat.ts
 var Moamalat = class {
-  constructor({ merchantId, terminalId, secureKey }) {
+  constructor({
+    merchantId,
+    terminalId,
+    secureKey = "",
+    prod
+  } = testConfig) {
     this.merchantId = merchantId;
     this.terminalId = terminalId;
-    this.secureKey = Buffer.from(secureKey, "hex");
+    this.secureKey = secureKey;
+    this.apiUrl = prod ? prodApiUrl : testApiUrl;
   }
   checkout(amount, reference = "", date = new Date()) {
     const dateTime = (0, import_dayjs.default)(date).format("YYYYMMDDHHmm");
-    return {
-      MID: this.merchantId,
-      TID: this.terminalId,
-      AmountTrxn: amount * 1e3,
-      MerchantReference: reference,
-      TrxDateTime: dateTime,
-      SecureHash: this.generateSecureHash(amount, reference, dateTime)
-    };
-  }
-  generateSecureHash(amount, reference, dateTime) {
-    const data = {
+    const _amount = amount * 1e3;
+    const hashData = {
       MerchantId: this.merchantId,
       TerminalId: this.terminalId,
-      Amount: (amount * 1e3).toString(),
+      Amount: _amount.toString(),
       DateTimeLocalTrxn: dateTime,
       MerchantReference: reference
     };
-    const params = new URLSearchParams(data);
+    return {
+      MID: this.merchantId,
+      TID: this.terminalId,
+      AmountTrxn: _amount,
+      MerchantReference: reference,
+      TrxDateTime: dateTime,
+      SecureHash: this.generateSecureHash(hashData)
+    };
+  }
+  async transactions(reference) {
+    const hashData = {
+      MerchantId: this.merchantId,
+      TerminalId: this.terminalId,
+      DateTimeLocalTrxn: (0, import_dayjs.default)().format("YYYYMMDDHHmmss")
+    };
+    const res = await (0, import_node_fetch.default)(
+      this.apiUrl + "/cube/paylink.svc/api/FilterTransactions",
+      {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+          ...hashData,
+          MerchantReference: reference,
+          DisplayLength: "2",
+          DisplayStart: "1",
+          SortCol: "TransactionId",
+          SortDir: "asc",
+          SecureHash: this.generateSecureHash(hashData)
+        })
+      }
+    );
+    const data = await res.json();
+    return data;
+  }
+  generateSecureHash(hashData) {
+    const params = new URLSearchParams(hashData);
     params.sort();
-    const hmac = (0, import_crypto.createHmac)("sha256", this.secureKey).update(params.toString()).digest("hex");
+    const data = params.toString();
+    const key = Buffer.from(this.secureKey, "hex");
+    const hmac = (0, import_crypto.createHmac)("sha256", key).update(data).digest("hex");
     return hmac;
   }
 };

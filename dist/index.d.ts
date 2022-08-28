@@ -2,6 +2,7 @@ declare type InstanceConfig = {
     merchantId: string;
     terminalId: string;
     secureKey: string;
+    prod?: boolean;
 };
 declare type MoamalatConfig = {
     MID: string;
@@ -11,18 +12,71 @@ declare type MoamalatConfig = {
     TrxDateTime: string;
     SecureHash: string;
 };
+interface TransactionResponse {
+    Message: string | null;
+    Success: boolean;
+    TotalAmountAllTransaction: number;
+    TotalAmountTipsTransaction: number | null;
+    TotalCountAllTransaction: number;
+    Transactions: Transaction[];
+}
+interface Transaction {
+    Date: string;
+    DateTotalAmount: string;
+    DateTransactions: DateTransaction[];
+}
+interface DateTransaction {
+    Amnt: string;
+    AmountTrxn: string;
+    AuthCode?: any;
+    CardNo: string;
+    CardType: string;
+    Currency: string;
+    ExternalTxnId?: any;
+    FeeAmnt: string;
+    HasToken: boolean;
+    ISForceSendCVCForRefund: boolean;
+    IsMustVoidTotalAmount: boolean;
+    IsPointTrasnaction: boolean;
+    IsRefund: boolean;
+    IsRefundEnabled: boolean;
+    IsSend: boolean;
+    MerchantReference: string;
+    MobileNumber?: any;
+    OriginalTxnId: string;
+    RRN: string;
+    ReceiptNo: string;
+    RefundButton: number;
+    RefundReason: string;
+    RefundSource: string;
+    RefundUserCreator: string;
+    RelatedTxnTotalAmount?: any;
+    RemainingRefundAmount: string;
+    ResCodeDesc: string;
+    STAN: string;
+    SenderName: string;
+    Status: "Approved" | "";
+    TipAmnt: string;
+    TransType: string;
+    TransactionChannel: string;
+    TransactionId: string;
+    TxnDateTime: string;
+    TxnIcon: number;
+}
 
 declare class Moamalat {
     private merchantId;
     private terminalId;
     private secureKey;
-    constructor({ merchantId, terminalId, secureKey }: InstanceConfig);
+    private apiUrl;
+    constructor({ merchantId, terminalId, secureKey, prod, }?: InstanceConfig);
     /**
      * @param amount amount to be paid in LYD
      * @param reference marchant reference e.g. invoice id
      * @param date date of checkout, default is now
      */
     checkout(amount: number, reference?: string, date?: Date): MoamalatConfig;
+    transactions(reference: string): Promise<TransactionResponse>;
     private generateSecureHash;
 }
 

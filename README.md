@@ -76,7 +76,7 @@ console.log(mycheckout);
   }
 ```
 
-### Request the checkout data from the browser
+#### Request the checkout data from the browser
 
 ```ts
 const openPaymentGateway = async () => {
