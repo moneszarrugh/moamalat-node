@@ -144,6 +144,8 @@ const openPaymentGateway = async () => {
 ### Verify Successful Payment
 
 ```ts
+// pass checkout reference
+// invoice id is 206 in this example
 const approved = await moamalat.transactionApproved(206);
 
 if (approved) {
