@@ -38,8 +38,6 @@ const Moamalat = require("moamalat").default;
 
 ### Library usage on your node app
 
-<br>
-
 Configure your moamalat instance with your credentials.
 
 ```ts
