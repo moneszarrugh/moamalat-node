@@ -2,7 +2,7 @@ export type InstanceConfig = {
   merchantId: string;
   terminalId: string;
   secureKey: string;
-  prod?: boolean;
+  prod: boolean;
 };
 
 export type MoamalatConfig = {

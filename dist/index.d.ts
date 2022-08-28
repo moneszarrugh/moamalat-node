@@ -2,7 +2,7 @@ declare type InstanceConfig = {
     merchantId: string;
     terminalId: string;
     secureKey: string;
-    prod?: boolean;
+    prod: boolean;
 };
 declare type MoamalatConfig = {
     MID: string;

@@ -35,17 +35,16 @@ const Moamalat = require("moamalat").default;
 #### Library usage on your node app
 
 ```ts
-/*
- configure your moamalat instance with your credentials
-
- get test credentials from here
- http://docs.moamalat.net:55/lightbox.html
-*/
+// configure your moamalat instance with your credentials
 const moamalat = new Moamalat({
   merchantId: "your merchantId",
   terminalId: "your terminalId",
   secureKey: "your secureKey",
+  prod: true,
 });
+
+// for testing, your don't need to configure anything
+const moamalat = new Moamalat();
 
 // example invoice
 const invoice = {
@@ -57,7 +56,7 @@ const invoice = {
 // use the data from the invoice for checkout
 const mycheckout = moamalat.checkout(
   invoice.amount, // required
-  invoice.id.toString(), // optional
+  invoice.id, // optional
   invoice.date // optional
 );
 
@@ -82,6 +81,12 @@ console.log(mycheckout);
 const openPaymentGateway = async () => {
   // @ts-ignore
   const Lightbox = window.Lightbox;
+
+  const invoice = {
+    id: 1,
+    amount: 100,
+    date: new Date(),
+  };
 
   // put your checkout logic in a handler and request it
   const res = await fetch("http://localhost:5000/checkout", {
@@ -115,4 +120,36 @@ const openPaymentGateway = async () => {
 };
 ```
 
-## Happy coding 😎
+#### Query transactions
+
+```ts
+// query by reference
+const t = await moamalat.transactions("");
+
+// optionally pass filtering options
+const t = await moamalat.transactions("206", {
+  displayStart: 0, // default is 0
+  displayLength: 1, // default is 1
+  dateFrom: new Date(),
+  dateTo: new Date(),
+});
+
+console.log(t);
+```
+
+```bash
+{
+  Message: null,
+  Success: true,
+  TotalAmountAllTransaction: 105536115,
+  TotalAmountTipsTransaction: 0,
+  TotalCountAllTransaction: 713,
+  Transactions: [
+    {
+      Date: '25/08/2022',
+      DateTotalAmount: '17000',
+      DateTransactions: [Array]
+    }
+  ]
+}
+```
