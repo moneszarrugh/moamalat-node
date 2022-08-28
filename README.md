@@ -36,8 +36,6 @@ const Moamalat = require("moamalat").default;
 
 ## Usage & [Examples](https://github.com/moneszarrugh/moamalat-node/tree/main/examples)
 
-<br>
-
 ### Library usage on your node app
 
 <br>
