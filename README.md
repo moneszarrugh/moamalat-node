@@ -49,8 +49,6 @@ const moamalat = new Moamalat({
 });
 ```
 
-<br>
-
 For testing, your don't need to configure anything.
 
 ```ts
@@ -143,6 +141,19 @@ const openPaymentGateway = async () => {
 
 <br>
 
+### Verify Successful Payment
+
+```ts
+const approved = await moamalat.transactionApproved(206);
+
+if (approved) {
+  // update invoice status in your database to paid
+  // send confirmation email to customer
+}
+```
+
+<br>
+
 ### Query Transactions
 
 ```ts
@@ -215,18 +226,5 @@ Prints
       ]
     }
   ]
-}
-```
-
-<br>
-
-### Verify Successful Payment
-
-```ts
-const approved = await moamalat.transactionApproved(206);
-
-if (approved) {
-  // update invoice status in your database to paid
-  // send confirmation email to customer
 }
 ```
