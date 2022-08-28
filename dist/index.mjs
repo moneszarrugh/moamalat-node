@@ -45,7 +45,7 @@ var Moamalat = class {
       SecureHash: this.generateSecureHash(hashData)
     };
   }
-  async transactions(reference, optoins = {}) {
+  async transactions(reference = "", optoins = {}) {
     const hashData = {
       MerchantId: this.merchantId,
       TerminalId: this.terminalId,

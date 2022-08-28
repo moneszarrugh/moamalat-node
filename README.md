@@ -127,7 +127,7 @@ const openPaymentGateway = async () => {
 const t = await moamalat.transactions("");
 
 // optionally pass filtering options
-const t = await moamalat.transactions("206", {
+const t = await moamalat.transactions(206, {
   displayStart: 0, // default is 0
   displayLength: 1, // default is 1
   dateFrom: new Date(2022, 0, 1),
@@ -137,18 +137,57 @@ const t = await moamalat.transactions("206", {
 console.log(t);
 ```
 
-```bash
+```json
 {
-  Message: null,
-  Success: true,
-  TotalAmountAllTransaction: 2200000,
-  TotalAmountTipsTransaction: 0,
-  TotalCountAllTransaction: 1,
-  Transactions: [
+  "Message": null,
+  "Success": true,
+  "TotalAmountAllTransaction": 2200000,
+  "TotalAmountTipsTransaction": 0,
+  "TotalCountAllTransaction": 1,
+  "Transactions": [
     {
-      Date: '04/08/2022',
-      DateTotalAmount: '2200000',
-      DateTransactions: [Array]
+      "Date": "04/08/2022",
+      "DateTotalAmount": "2200000",
+      "DateTransactions": [
+        {
+          "Amnt": "2200000",
+          "AmountTrxn": "2200000",
+          "AuthCode": null,
+          "CardNo": "639499XXXXXX0781",
+          "CardType": "",
+          "Currency": "LYD",
+          "ExternalTxnId": null,
+          "FeeAmnt": "0",
+          "HasToken": true,
+          "ISForceSendCVCForRefund": true,
+          "IsMustVoidTotalAmount": false,
+          "IsPointTrasnaction": false,
+          "IsRefund": false,
+          "IsRefundEnabled": true,
+          "IsSend": false,
+          "MerchantReference": "206",
+          "MobileNumber": null,
+          "OriginalTxnId": "",
+          "RRN": "221603323057",
+          "ReceiptNo": "221603323057",
+          "RefundButton": 0,
+          "RefundReason": "",
+          "RefundSource": "",
+          "RefundUserCreator": "",
+          "RelatedTxnTotalAmount": null,
+          "RemainingRefundAmount": "2200000",
+          "ResCodeDesc": "Approved",
+          "STAN": "323057",
+          "SenderName": "mones zarrugh",
+          "Status": "Approved",
+          "TipAmnt": "0",
+          "TransType": "Sale",
+          "TransactionChannel": "Card",
+          "TransactionId": "1232907",
+          "TxnDateTime": "04/08/22  03:46",
+          "TxnIcon": 2
+        }
+      ]
     }
   ]
 }

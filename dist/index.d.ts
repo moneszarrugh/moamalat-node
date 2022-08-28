@@ -84,7 +84,7 @@ declare class Moamalat {
      * @param date date of checkout, default is now
      */
     checkout(amount: number, reference?: string | number, date?: Date): MoamalatConfig;
-    transactions(reference: string | number, optoins?: Partial<TransactionsFilterOptions>): Promise<TransactionsResponse>;
+    transactions(reference?: string | number, optoins?: Partial<TransactionsFilterOptions>): Promise<TransactionsResponse>;
     private generateSecureHash;
 }
 

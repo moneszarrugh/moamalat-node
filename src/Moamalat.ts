@@ -66,7 +66,7 @@ class Moamalat {
   }
 
   async transactions(
-    reference: string | number,
+    reference: string | number = "",
     optoins: Partial<TransactionsFilterOptions> = {}
   ): Promise<TransactionsResponse> {
     const hashData: FilterTransactionsHashData = {
