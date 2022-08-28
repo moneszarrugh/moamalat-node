@@ -34,9 +34,11 @@ CommonJS (support will be dropped in a future version)
 const Moamalat = require("moamalat").default;
 ```
 
-## Usage
+## Usage & [Examples](https://github.com/moneszarrugh/moamalat-node/tree/main/examples)
 
-#### Library usage on your node app
+<br>
+
+### Library usage on your node app
 
 <br>
 
@@ -95,6 +97,8 @@ Prints
 ```
 
 <br>
+
+### Library usage on the browser
 
 #### Request the checkout data using an http request to use with LightBox in the browser.
 
