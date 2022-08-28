@@ -1,6 +1,10 @@
 # Moamalat Node.js
 
-The Moamalat node library makes it super simple to write the server-side code of the checkout proccess for the Moamalat payment gateway.
+The Moamalat node library makes it super simple and blazingly fast to write the server-side code of the checkout proccess for the Moamalat payment gateway.
+
+Implemented in TypeScript with full type definitions for all your IntelliSense needs.
+
+This library was based on [official docs here](http://docs.moamalat.net:55/lightbox.html).
 
 ## Installation
 
@@ -24,7 +28,7 @@ ES Modules
 import Moamalat from "moamalat";
 ```
 
-CommonJS
+CommonJS (support will be dropped in a future version)
 
 ```ts
 const Moamalat = require("moamalat").default;
@@ -34,18 +38,30 @@ const Moamalat = require("moamalat").default;
 
 #### Library usage on your node app
 
+<br>
+
+Configure your moamalat instance with your credentials.
+
 ```ts
-// configure your moamalat instance with your credentials
 const moamalat = new Moamalat({
   merchantId: "your merchantId",
   terminalId: "your terminalId",
   secureKey: "your secureKey",
   prod: true,
 });
+```
 
-// for testing, your don't need to configure anything
+<br>
+
+For testing, your don't need to configure anything.
+
+```ts
 const moamalat = new Moamalat();
+```
 
+Checkout
+
+```ts
 // example invoice
 const invoice = {
   id: 1,
@@ -63,19 +79,22 @@ const mycheckout = moamalat.checkout(
 console.log(mycheckout);
 ```
 
-```sh
-# mycheckout
+Prints
+
+```json
 {
-    MID: 'your merchantId',
-    TID: 'your terminalId',
-    AmountTrxn: 100000,
-    MerchantReference: '1',
-    TrxDateTime: '202208232306',
-    SecureHash: '040654be3e74c6fe6ae873b84e94553e0cfb385431edcfe7a975312ead0f5849'
-  }
+  "MID": "10081014649",
+  "TID": "99179395",
+  "AmountTrxn": 100000,
+  "MerchantReference": "1",
+  "TrxDateTime": "202208280609",
+  "SecureHash": "ece57701f40c0ef7b482e476b37118568c76d5d054243d244d5533c05e6c9ae3"
+}
 ```
 
-#### Request the checkout data from the browser
+<br>
+
+#### Request the checkout data using an http request to use with LightBox in the browser.
 
 ```ts
 const openPaymentGateway = async () => {
@@ -120,6 +139,8 @@ const openPaymentGateway = async () => {
 };
 ```
 
+<br>
+
 #### Query transactions
 
 ```ts
@@ -136,6 +157,8 @@ const t = await moamalat.transactions(206, {
 
 console.log(t);
 ```
+
+Prints
 
 ```json
 {
@@ -190,5 +213,15 @@ console.log(t);
       ]
     }
   ]
+}
+```
+
+Verify successful payment
+
+```ts
+const approved = t.Transactions[0].DateTransactions[0].Status === "Approved";
+
+if (approved) {
+  //     update invoice status to paid and send confirmation email to customer
 }
 ```

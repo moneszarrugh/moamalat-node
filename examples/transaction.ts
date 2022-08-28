@@ -11,6 +11,12 @@ async function loadTransaction() {
   });
 
   console.log(JSON.stringify(t, null, 3));
+
+  const approved = t.Transactions[0].DateTransactions[0].Status === "Approved";
+
+  if (approved) {
+    //     update invoice status to paid and send confirmation to customer
+  }
 }
 
 loadTransaction();
