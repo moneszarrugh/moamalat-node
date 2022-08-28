@@ -1,10 +1,10 @@
 # Moamalat Node.js
 
-The Moamalat node library makes it super simple and blazingly fast to write the server-side code to interact with the Moamalat payment gateway and API.
+The Moamalat node library makes it super simple and blazingly fast to write server-side code to interact with the Moamalat payment gateway and API.
 
 Implemented in TypeScript with full type definitions for all your IntelliSense needs.
 
-This library was based on [the official docs here](http://docs.moamalat.net:55/lightbox.html).
+This library was based on [the official docs](http://docs.moamalat.net:55/lightbox.html).
 
 ## Installation
 
@@ -28,7 +28,7 @@ ES Modules
 import Moamalat from "moamalat";
 ```
 
-CommonJS (support will be dropped in a future version)
+CommonJS
 
 ```ts
 const Moamalat = require("moamalat").default;
@@ -94,7 +94,7 @@ Prints
 
 ### Library usage on the browser
 
-#### Request the checkout data using an http request to use with LightBox in the browser.
+Request the checkout data using an http request to use with LightBox in the browser.
 
 ```ts
 const openPaymentGateway = async () => {
@@ -141,7 +141,7 @@ const openPaymentGateway = async () => {
 
 <br>
 
-### Verify Successful Payment
+### Verify Payment
 
 ```ts
 // pass checkout reference

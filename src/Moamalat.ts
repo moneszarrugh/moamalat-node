@@ -66,6 +66,9 @@ class Moamalat {
     };
   }
 
+  /**
+   * @param reference marchant reference e.g. invoice id
+   */
   async transactionApproved(reference: Reference = ""): Promise<boolean> {
     const transactions = await this.transactions(reference);
 
@@ -79,6 +82,10 @@ class Moamalat {
     return approved;
   }
 
+  /**
+   * @param reference marchant reference e.g. invoice id
+   * @param optoins filter options
+   */
   async transactions(
     reference: Reference = "",
     optoins: Partial<TransactionsFilterOptions> = {}
