@@ -77,7 +77,7 @@ class Moamalat {
     }
 
     const approved =
-      transactions.Transactions[0].DateTransactions?.[0]?.Status === "Approved";
+      transactions.Transactions[0].DateTransactions[0].Status === "Approved";
 
     return approved;
   }
