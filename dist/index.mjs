@@ -45,7 +45,7 @@ var Moamalat = class {
       SecureHash: this.generateSecureHash(hashData)
     };
   }
-  async transactionApproved(reference = "") {
+  async transactionApproved(reference) {
     var _a, _b, _c;
     const transactions = await this.transactions(reference);
     if (!((_a = transactions.Transactions) == null ? void 0 : _a.length)) {

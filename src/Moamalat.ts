@@ -69,7 +69,7 @@ class Moamalat {
   /**
    * @param reference marchant reference e.g. invoice id
    */
-  async transactionApproved(reference: Reference = ""): Promise<boolean> {
+  async transactionApproved(reference: Reference): Promise<boolean> {
     const transactions = await this.transactions(reference);
 
     if (!transactions.Transactions?.length) {

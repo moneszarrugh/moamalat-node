@@ -1,9 +1,5 @@
 import Moamalat from "../src";
 
-/*
-    get test data from: http://docs.moamalat.net:55/lightbox.html
-*/
-
 // production mode
 // const moamalat = new Moamalat({
 //   merchantId: "your merchantId",

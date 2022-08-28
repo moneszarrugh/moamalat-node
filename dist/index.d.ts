@@ -85,7 +85,14 @@ declare class Moamalat {
      * @param date date of checkout, default is now
      */
     checkout(amount: number, reference?: string | number, date?: Date): MoamalatConfig;
-    transactionApproved(reference?: Reference): Promise<boolean>;
+    /**
+     * @param reference marchant reference e.g. invoice id
+     */
+    transactionApproved(reference: Reference): Promise<boolean>;
+    /**
+     * @param reference marchant reference e.g. invoice id
+     * @param optoins filter options
+     */
     transactions(reference?: Reference, optoins?: Partial<TransactionsFilterOptions>): Promise<TransactionsResponse>;
     private generateSecureHash;
 }

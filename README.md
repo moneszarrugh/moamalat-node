@@ -57,7 +57,7 @@ const moamalat = new Moamalat();
 
 <br>
 
-Checkout
+### Checkout
 
 ```ts
 // example invoice
