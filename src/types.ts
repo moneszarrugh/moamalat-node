@@ -22,6 +22,8 @@ export type CheckoutHashData = {
   DateTimeLocalTrxn: string;
 };
 
+export type Reference = string | number;
+
 export type FilterTransactionsHashData = {
   MerchantId: string;
   TerminalId: string;
@@ -45,7 +47,7 @@ export interface TransactionsResponse {
   TotalAmountAllTransaction: number;
   TotalAmountTipsTransaction: number | null;
   TotalCountAllTransaction: number;
-  Transactions: Transaction[];
+  Transactions: Transaction[] | null;
 }
 
 export interface Transaction {

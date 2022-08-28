@@ -11,6 +11,7 @@ import {
   MoamalatConfig,
   TransactionsResponse,
   TransactionsFilterOptions,
+  Reference,
 } from "./types";
 
 class Moamalat {
@@ -65,8 +66,21 @@ class Moamalat {
     };
   }
 
+  async transactionApproved(reference: Reference = ""): Promise<boolean> {
+    const transactions = await this.transactions(reference);
+
+    if (!transactions.Transactions?.length) {
+      throw new Error(transactions.Message || "");
+    }
+
+    const approved =
+      transactions.Transactions[0].DateTransactions?.[0]?.Status === "Approved";
+
+    return approved;
+  }
+
   async transactions(
-    reference: string | number = "",
+    reference: Reference = "",
     optoins: Partial<TransactionsFilterOptions> = {}
   ): Promise<TransactionsResponse> {
     const hashData: FilterTransactionsHashData = {

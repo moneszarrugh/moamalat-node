@@ -77,6 +77,15 @@ var Moamalat = class {
       SecureHash: this.generateSecureHash(hashData)
     };
   }
+  async transactionApproved(reference = "") {
+    var _a, _b, _c;
+    const transactions = await this.transactions(reference);
+    if (!((_a = transactions.Transactions) == null ? void 0 : _a.length)) {
+      throw new Error(transactions.Message || "");
+    }
+    const approved = ((_c = (_b = transactions.Transactions[0].DateTransactions) == null ? void 0 : _b[0]) == null ? void 0 : _c.Status) === "Approved";
+    return approved;
+  }
   async transactions(reference = "", optoins = {}) {
     const hashData = {
       MerchantId: this.merchantId,

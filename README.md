@@ -1,10 +1,10 @@
 # Moamalat Node.js
 
-The Moamalat node library makes it super simple and blazingly fast to write the server-side code of the checkout proccess for the Moamalat payment gateway.
+The Moamalat node library makes it super simple and blazingly fast to write the server-side code to interact with the Moamalat payment gateway and API.
 
 Implemented in TypeScript with full type definitions for all your IntelliSense needs.
 
-This library was based on [official docs here](http://docs.moamalat.net:55/lightbox.html).
+This library was based on [the official docs here](http://docs.moamalat.net:55/lightbox.html).
 
 ## Installation
 
@@ -58,6 +58,8 @@ For testing, your don't need to configure anything.
 ```ts
 const moamalat = new Moamalat();
 ```
+
+<br>
 
 Checkout
 
@@ -141,21 +143,21 @@ const openPaymentGateway = async () => {
 
 <br>
 
-#### Query transactions
+### Query Transactions
 
 ```ts
 // query by reference
-const t = await moamalat.transactions("");
+const transactions = await moamalat.transactions(206);
 
 // optionally pass filtering options
-const t = await moamalat.transactions(206, {
+const transactions = await moamalat.transactions(206, {
   displayStart: 0, // default is 0
   displayLength: 1, // default is 1
   dateFrom: new Date(2022, 0, 1),
   dateTo: "2022-08-28T00:34:40.974Z", // ISO 8601 format is also supported
 });
 
-console.log(t);
+console.log(transactions);
 ```
 
 Prints
@@ -216,12 +218,15 @@ Prints
 }
 ```
 
-Verify successful payment
+<br>
+
+### Verify Successful Payment
 
 ```ts
-const approved = t.Transactions[0].DateTransactions[0].Status === "Approved";
+const approved = await moamalat.transactionApproved(206);
 
 if (approved) {
-  //     update invoice status to paid and send confirmation email to customer
+  // update invoice status in your database to paid
+  // send confirmation email to customer
 }
 ```

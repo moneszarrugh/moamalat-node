@@ -12,6 +12,7 @@ declare type MoamalatConfig = {
     TrxDateTime: string;
     SecureHash: string;
 };
+declare type Reference = string | number;
 interface TransactionsFilterOptions {
     displayLength: number;
     displayStart: number;
@@ -26,7 +27,7 @@ interface TransactionsResponse {
     TotalAmountAllTransaction: number;
     TotalAmountTipsTransaction: number | null;
     TotalCountAllTransaction: number;
-    Transactions: Transaction[];
+    Transactions: Transaction[] | null;
 }
 interface Transaction {
     Date: string;
@@ -84,7 +85,8 @@ declare class Moamalat {
      * @param date date of checkout, default is now
      */
     checkout(amount: number, reference?: string | number, date?: Date): MoamalatConfig;
-    transactions(reference?: string | number, optoins?: Partial<TransactionsFilterOptions>): Promise<TransactionsResponse>;
+    transactionApproved(reference?: Reference): Promise<boolean>;
+    transactions(reference?: Reference, optoins?: Partial<TransactionsFilterOptions>): Promise<TransactionsResponse>;
     private generateSecureHash;
 }
 
