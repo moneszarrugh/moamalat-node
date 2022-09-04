@@ -1,6 +1,6 @@
 {
   "name": "moamalat",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Moamalat server sdk",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
