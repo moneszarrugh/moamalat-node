@@ -162,15 +162,15 @@ Query One
 
 ```ts
 // query by reference
-const transactions = await moamalat.transactions(206);
+const transaction = await moamalat.transactions(206);
 
-console.log(transactions);
+console.log(transaction);
 ```
 
 Query Many
 
 ```ts
-// optionally pass filtering options
+// pass null reference with filtering options
 const transactions = await moamalat.transactions(null, {
   displayStart: 0, // default is 0
   displayLength: 100, // default is 1
