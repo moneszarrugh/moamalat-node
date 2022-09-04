@@ -158,19 +158,25 @@ if (approved) {
 
 ### Query Transactions
 
+Query One
+
 ```ts
 // query by reference
 const transactions = await moamalat.transactions(206);
 
+console.log(transactions);
+```
+
+Query Many
+
+```ts
 // optionally pass filtering options
-const transactions = await moamalat.transactions(206, {
+const transactions = await moamalat.transactions(null, {
   displayStart: 0, // default is 0
-  displayLength: 1, // default is 1
+  displayLength: 100, // default is 1
   dateFrom: new Date(2022, 0, 1),
   dateTo: "2022-08-28T00:34:40.974Z", // ISO 8601 format is also supported
 });
-
-console.log(transactions);
 ```
 
 Prints

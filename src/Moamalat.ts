@@ -37,7 +37,7 @@ class Moamalat {
   /**
    * @param amount amount to be paid in LYD
    * @param reference marchant reference e.g. invoice id
-   * @param date date of checkout, default is now
+   * @param date date of checkout, default is new Date()
    */
   checkout(
     amount: number,
@@ -87,7 +87,7 @@ class Moamalat {
    * @param optoins filter options
    */
   async transactions(
-    reference: Reference = "",
+    reference: Reference | null | undefined,
     optoins: Partial<TransactionsFilterOptions> = {}
   ): Promise<TransactionsResponse> {
     const hashData: FilterTransactionsHashData = {
@@ -105,6 +105,18 @@ class Moamalat {
       sortDir,
     } = optoins;
 
+    const body = {
+      ...hashData,
+      MerchantReference: reference?.toString(),
+      DisplayLength: displayLength,
+      DisplayStart: displayStart,
+      DateFrom: dateFrom && dayjs(dateFrom).format("YYYYMMDD"),
+      DateTo: dateTo && dayjs(dateTo).format("YYYYMMDD"),
+      SortCol: sortCol,
+      SortDir: sortDir,
+      SecureHash: this.generateSecureHash(hashData),
+    };
+
     const res = await fetch(
       this.apiUrl + "/cube/paylink.svc/api/FilterTransactions",
       {
@@ -112,17 +124,7 @@ class Moamalat {
           "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify({
-          ...hashData,
-          MerchantReference: reference.toString(),
-          DisplayLength: displayLength,
-          DisplayStart: displayStart,
-          DateFrom: dateFrom && dayjs(dateFrom).format("YYYYMMDD"),
-          DateTo: dateTo && dayjs(dateTo).format("YYYYMMDD"),
-          SortCol: sortCol,
-          SortDir: sortDir,
-          SecureHash: this.generateSecureHash(hashData),
-        }),
+        body: JSON.stringify(body),
       }
     );
 
