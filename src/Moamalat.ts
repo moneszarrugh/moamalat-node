@@ -42,7 +42,7 @@ class Moamalat {
   checkout(
     amount: number,
     reference: string | number = "",
-    date: Date = new Date()
+    date: string | Date = new Date()
   ): MoamalatConfig {
     const dateTime = dayjs(date).format("YYYYMMDDHHmm");
 

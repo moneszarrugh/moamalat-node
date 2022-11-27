@@ -82,9 +82,9 @@ declare class Moamalat {
     /**
      * @param amount amount to be paid in LYD
      * @param reference marchant reference e.g. invoice id
-     * @param date date of checkout, default is now
+     * @param date date of checkout, default is new Date()
      */
-    checkout(amount: number, reference?: string | number, date?: Date): MoamalatConfig;
+    checkout(amount: number, reference?: string | number, date?: string | Date): MoamalatConfig;
     /**
      * @param reference marchant reference e.g. invoice id
      */
@@ -93,7 +93,7 @@ declare class Moamalat {
      * @param reference marchant reference e.g. invoice id
      * @param optoins filter options
      */
-    transactions(reference?: Reference, optoins?: Partial<TransactionsFilterOptions>): Promise<TransactionsResponse>;
+    transactions(reference: Reference | null | undefined, optoins?: Partial<TransactionsFilterOptions>): Promise<TransactionsResponse>;
     private generateSecureHash;
 }
 

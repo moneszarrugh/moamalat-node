@@ -86,7 +86,7 @@ var Moamalat = class {
     const approved = transactions.Transactions[0].DateTransactions[0].Status === "Approved";
     return approved;
   }
-  async transactions(reference = "", optoins = {}) {
+  async transactions(reference, optoins = {}) {
     const hashData = {
       MerchantId: this.merchantId,
       TerminalId: this.terminalId,
@@ -100,6 +100,17 @@ var Moamalat = class {
       sortCol,
       sortDir
     } = optoins;
+    const body = {
+      ...hashData,
+      MerchantReference: reference == null ? void 0 : reference.toString(),
+      DisplayLength: displayLength,
+      DisplayStart: displayStart,
+      DateFrom: dateFrom && (0, import_dayjs.default)(dateFrom).format("YYYYMMDD"),
+      DateTo: dateTo && (0, import_dayjs.default)(dateTo).format("YYYYMMDD"),
+      SortCol: sortCol,
+      SortDir: sortDir,
+      SecureHash: this.generateSecureHash(hashData)
+    };
     const res = await (0, import_node_fetch.default)(
       this.apiUrl + "/cube/paylink.svc/api/FilterTransactions",
       {
@@ -107,17 +118,7 @@ var Moamalat = class {
           "Content-Type": "application/json"
         },
         method: "POST",
-        body: JSON.stringify({
-          ...hashData,
-          MerchantReference: reference.toString(),
-          DisplayLength: displayLength,
-          DisplayStart: displayStart,
-          DateFrom: dateFrom && (0, import_dayjs.default)(dateFrom).format("YYYYMMDD"),
-          DateTo: dateTo && (0, import_dayjs.default)(dateTo).format("YYYYMMDD"),
-          SortCol: sortCol,
-          SortDir: sortDir,
-          SecureHash: this.generateSecureHash(hashData)
-        })
+        body: JSON.stringify(body)
       }
     );
     const data = await res.json();
