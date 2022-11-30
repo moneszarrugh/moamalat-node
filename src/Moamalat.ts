@@ -72,12 +72,12 @@ class Moamalat {
   async transactionApproved(reference: Reference): Promise<boolean> {
     const transactions = await this.transactions(reference);
 
-    if (!transactions.Transactions?.length) {
-      throw new Error(transactions.Message || "");
-    }
+    let approved = false;
 
-    const approved =
-      transactions.Transactions[0].DateTransactions[0].Status === "Approved";
+    if (transactions.Transactions?.length) {
+      approved =
+        transactions.Transactions[0].DateTransactions[0].Status === "Approved";
+    }
 
     return approved;
   }
