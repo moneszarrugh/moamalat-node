@@ -48,10 +48,10 @@ var Moamalat = class {
   async transactionApproved(reference) {
     var _a;
     const transactions = await this.transactions(reference);
-    if (!((_a = transactions.Transactions) == null ? void 0 : _a.length)) {
-      throw new Error(transactions.Message || "");
+    let approved = false;
+    if ((_a = transactions.Transactions) == null ? void 0 : _a.length) {
+      approved = transactions.Transactions[0].DateTransactions[0].Status === "Approved";
     }
-    const approved = transactions.Transactions[0].DateTransactions[0].Status === "Approved";
     return approved;
   }
   async transactions(reference, optoins = {}) {
